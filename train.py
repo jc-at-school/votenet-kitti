@@ -146,9 +146,9 @@ else:
     exit(-1)
 print(len(TRAIN_DATASET), len(TEST_DATASET))
 TRAIN_DATALOADER = DataLoader(TRAIN_DATASET, batch_size=BATCH_SIZE,
-    shuffle=True, num_workers=0, worker_init_fn=my_worker_init_fn)
+    shuffle=True, num_workers=4, worker_init_fn=my_worker_init_fn)
 TEST_DATALOADER = DataLoader(TEST_DATASET, batch_size=BATCH_SIZE,
-    shuffle=True, num_workers=0, worker_init_fn=my_worker_init_fn)
+    shuffle=True, num_workers=4, worker_init_fn=my_worker_init_fn)
 print(len(TRAIN_DATALOADER), len(TEST_DATALOADER))
 
 # Init the model and optimzier
@@ -228,6 +228,7 @@ def train_one_epoch():
     adjust_learning_rate(optimizer, EPOCH_CNT)
     bnm_scheduler.step() # decay BN momentum
     net.train() # set model to training mode
+    torch.autograd.set_detect_anomaly(True)
     for batch_idx, batch_data_label in enumerate(TRAIN_DATALOADER):
         for key in batch_data_label:
             batch_data_label[key] = batch_data_label[key].to(device)

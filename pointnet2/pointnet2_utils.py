@@ -23,7 +23,7 @@ except:
     import __builtin__ as builtins
 
 try:
-    import pointnet2._ext as _ext
+    import pointnet2_ops._ext as _ext
 except ImportError:
     if not getattr(builtins, "__POINTNET2_SETUP__", False):
         raise ImportError(
@@ -68,7 +68,12 @@ class FurthestPointSampling(Function):
         torch.Tensor
             (B, npoint) tensor containing the set
         """
-        return _ext.furthest_point_sampling(xyz, npoint)
+        out = _ext.furthest_point_sampling(xyz, npoint)
+
+        ctx.mark_non_differentiable(out)
+
+        return out
+
 
     @staticmethod
     def backward(xyz, a=None):
@@ -136,8 +141,14 @@ class ThreeNN(Function):
             (B, n, 3) index of 3 nearest neighbors
         """
         dist2, idx = _ext.three_nn(unknown, known)
+        dist = torch.sqrt(dist2)
 
-        return torch.sqrt(dist2), idx
+        ctx.mark_non_differentiable(dist, idx)
+
+        return dist, idx
+        # dist2, idx = _ext.three_nn(unknown, known)
+
+        # return torch.sqrt(dist2), idx
 
     @staticmethod
     def backward(ctx, a=None, b=None):
@@ -277,7 +288,12 @@ class BallQuery(Function):
         torch.Tensor
             (B, npoint, nsample) tensor with the indicies of the features that form the query balls
         """
-        return _ext.ball_query(new_xyz, xyz, radius, nsample)
+        output = _ext.ball_query(new_xyz, xyz, radius, nsample)
+
+        ctx.mark_non_differentiable(output)
+
+        return output
+        # return _ext.ball_query(new_xyz, xyz, radius, nsample)
 
     @staticmethod
     def backward(ctx, a=None):
