@@ -1,0 +1,128 @@
+Namespace(DUMP_DIR='/home/chia/CS7643-DL/Group/votenet-kitti/log', ap_iou_thresh=0.25, batch_size=2, bn_decay_rate=0.5, bn_decay_step=20, checkpoint_path=None, cluster_sampling='vote_fps', dataset='kitti', dump_dir=None, dump_results=False, learning_rate=0.001, log_dir='log', lr_decay_rates='0.1,0.1,0.1', lr_decay_steps='80,120,160', max_epoch=200, model='votenet', no_height=True, num_point=20000, num_target=256, overwrite=False, use_color=False, use_sunrgbd_v2=False, vote_factor=1, weight_decay=0)
+train start
+**** EPOCH 000 ****
+Current learning rate: 0.001000
+Current BN decay momentum: 0.500000
+2022-04-28 23:18:18.056310
+Namespace(DUMP_DIR='/home/chia/CS7643-DL/Group/votenet-kitti/log', ap_iou_thresh=0.25, batch_size=2, bn_decay_rate=0.5, bn_decay_step=20, checkpoint_path=None, cluster_sampling='vote_fps', dataset='kitti', dump_dir=None, dump_results=False, learning_rate=0.001, log_dir='log', lr_decay_rates='0.1,0.1,0.1', lr_decay_steps='80,120,160', max_epoch=200, model='votenet', no_height=True, num_point=20000, num_target=256, overwrite=False, use_color=False, use_sunrgbd_v2=False, vote_factor=1, weight_decay=0)
+train start
+**** EPOCH 000 ****
+Current learning rate: 0.001000
+Current BN decay momentum: 0.500000
+2022-04-28 23:21:15.476389
+Namespace(DUMP_DIR='/home/chia/CS7643-DL/Group/votenet-kitti/log', ap_iou_thresh=0.25, batch_size=2, bn_decay_rate=0.5, bn_decay_step=20, checkpoint_path=None, cluster_sampling='vote_fps', dataset='kitti', dump_dir=None, dump_results=False, learning_rate=0.001, log_dir='log', lr_decay_rates='0.1,0.1,0.1', lr_decay_steps='80,120,160', max_epoch=200, model='votenet', no_height=True, num_point=20000, num_target=256, overwrite=False, use_color=False, use_sunrgbd_v2=False, vote_factor=1, weight_decay=0)
+train start
+**** EPOCH 000 ****
+Current learning rate: 0.001000
+Current BN decay momentum: 0.500000
+2022-04-28 23:22:01.820025
+Namespace(DUMP_DIR='/home/chia/CS7643-DL/Group/votenet-kitti/log', ap_iou_thresh=0.25, batch_size=2, bn_decay_rate=0.5, bn_decay_step=20, checkpoint_path=None, cluster_sampling='vote_fps', dataset='kitti', dump_dir=None, dump_results=False, learning_rate=0.001, log_dir='log', lr_decay_rates='0.1,0.1,0.1', lr_decay_steps='80,120,160', max_epoch=200, model='votenet', no_height=True, num_point=20000, num_target=256, overwrite=False, use_color=False, use_sunrgbd_v2=False, vote_factor=1, weight_decay=0)
+train start
+**** EPOCH 000 ****
+Current learning rate: 0.001000
+Current BN decay momentum: 0.500000
+2022-04-28 23:22:47.530992
+Namespace(DUMP_DIR='/home/chia/CS7643-DL/Group/votenet-kitti/log', ap_iou_thresh=0.25, batch_size=2, bn_decay_rate=0.5, bn_decay_step=20, checkpoint_path=None, cluster_sampling='vote_fps', dataset='kitti', dump_dir=None, dump_results=False, learning_rate=0.001, log_dir='log', lr_decay_rates='0.1,0.1,0.1', lr_decay_steps='80,120,160', max_epoch=200, model='votenet', no_height=True, num_point=20000, num_target=256, overwrite=False, use_color=False, use_sunrgbd_v2=False, vote_factor=1, weight_decay=0)
+train start
+**** EPOCH 000 ****
+Current learning rate: 0.001000
+Current BN decay momentum: 0.500000
+2022-04-28 23:27:41.200426
+Namespace(DUMP_DIR='/home/chia/CS7643-DL/Group/votenet-kitti/log', ap_iou_thresh=0.25, batch_size=4, bn_decay_rate=0.5, bn_decay_step=20, checkpoint_path=None, cluster_sampling='vote_fps', dataset='kitti', dump_dir=None, dump_results=False, learning_rate=0.001, log_dir='log', lr_decay_rates='0.1,0.1,0.1', lr_decay_steps='80,120,160', max_epoch=200, model='votenet', no_height=True, num_point=20000, num_target=256, overwrite=False, use_color=False, use_sunrgbd_v2=False, vote_factor=1, weight_decay=0)
+train start
+**** EPOCH 000 ****
+Current learning rate: 0.001000
+Current BN decay momentum: 0.500000
+2022-04-28 23:28:05.148091
+Namespace(DUMP_DIR='/home/chia/CS7643-DL/Group/votenet-kitti/log', ap_iou_thresh=0.25, batch_size=4, bn_decay_rate=0.5, bn_decay_step=20, checkpoint_path=None, cluster_sampling='vote_fps', dataset='kitti', dump_dir=None, dump_results=False, learning_rate=0.001, log_dir='log', lr_decay_rates='0.1,0.1,0.1', lr_decay_steps='80,120,160', max_epoch=200, model='votenet', no_height=True, num_point=20000, num_target=256, overwrite=False, use_color=False, use_sunrgbd_v2=False, vote_factor=1, weight_decay=0)
+train start
+**** EPOCH 000 ****
+Current learning rate: 0.001000
+Current BN decay momentum: 0.500000
+2022-04-28 23:32:06.064399
+Namespace(DUMP_DIR='/home/chia/CS7643-DL/Group/votenet-kitti/log', ap_iou_thresh=0.25, batch_size=4, bn_decay_rate=0.5, bn_decay_step=20, checkpoint_path=None, cluster_sampling='vote_fps', dataset='kitti', dump_dir=None, dump_results=False, learning_rate=0.001, log_dir='log', lr_decay_rates='0.1,0.1,0.1', lr_decay_steps='80,120,160', max_epoch=200, model='votenet', no_height=True, num_point=20000, num_target=256, overwrite=False, use_color=False, use_sunrgbd_v2=False, vote_factor=1, weight_decay=0)
+train start
+**** EPOCH 000 ****
+Current learning rate: 0.001000
+Current BN decay momentum: 0.500000
+2022-04-28 23:40:15.230561
+Namespace(DUMP_DIR='/home/chia/CS7643-DL/Group/votenet-kitti/log', ap_iou_thresh=0.25, batch_size=4, bn_decay_rate=0.5, bn_decay_step=20, checkpoint_path=None, cluster_sampling='vote_fps', dataset='kitti', dump_dir=None, dump_results=False, learning_rate=0.001, log_dir='log', lr_decay_rates='0.1,0.1,0.1', lr_decay_steps='80,120,160', max_epoch=200, model='votenet', no_height=True, num_point=20000, num_target=256, overwrite=False, use_color=False, use_sunrgbd_v2=False, vote_factor=1, weight_decay=0)
+train start
+**** EPOCH 000 ****
+Current learning rate: 0.001000
+Current BN decay momentum: 0.500000
+2022-04-28 23:41:35.321547
+Namespace(DUMP_DIR='/home/chia/CS7643-DL/Group/votenet-kitti/log', ap_iou_thresh=0.25, batch_size=4, bn_decay_rate=0.5, bn_decay_step=20, checkpoint_path=None, cluster_sampling='vote_fps', dataset='kitti', dump_dir=None, dump_results=False, learning_rate=0.001, log_dir='log', lr_decay_rates='0.1,0.1,0.1', lr_decay_steps='80,120,160', max_epoch=200, model='votenet', no_height=True, num_point=20000, num_target=256, overwrite=False, use_color=False, use_sunrgbd_v2=False, vote_factor=1, weight_decay=0)
+train start
+**** EPOCH 000 ****
+Current learning rate: 0.001000
+Current BN decay momentum: 0.500000
+2022-04-28 23:52:22.701539
+ ---- batch: 010 ----
+mean box_loss: 2.684942
+mean center_loss: 2.181040
+mean heading_acc: 0.000000
+mean heading_cls_loss: 1.963823
+mean heading_reg_loss: 0.179814
+mean loss: 48.511072
+mean neg_ratio: 0.994043
+mean obj_acc: 0.640425
+mean objectness_loss: 0.129404
+mean pos_ratio: 0.001172
+mean sem_acc: 0.550000
+mean sem_cls_loss: 0.499747
+mean size_acc: 0.583333
+mean size_cls_loss: 0.479568
+mean size_reg_loss: 0.079749
+mean vote_loss: 2.051489
+ ---- batch: 020 ----
+mean box_loss: 2.078468
+mean center_loss: 1.759231
+mean heading_acc: 0.100000
+mean heading_cls_loss: 1.171603
+mean heading_reg_loss: 0.118962
+mean loss: 40.987146
+mean neg_ratio: 0.995508
+mean obj_acc: 0.978831
+mean objectness_loss: 0.063433
+mean pos_ratio: 0.000781
+mean sem_acc: 0.500000
+mean sem_cls_loss: 0.171916
+mean size_acc: 0.500000
+mean size_cls_loss: 0.226380
+mean size_reg_loss: 0.060477
+mean vote_loss: 1.971338
+ ---- batch: 030 ----
+mean box_loss: 2.003157
+mean center_loss: 1.832556
+mean heading_acc: 0.050000
+mean heading_cls_loss: 1.183163
+mean heading_reg_loss: 0.020050
+mean loss: 40.367811
+mean neg_ratio: 0.995117
+mean obj_acc: 0.999117
+mean objectness_loss: 0.034602
+mean pos_ratio: 0.000586
+mean sem_acc: 0.400000
+mean sem_cls_loss: 0.127451
+mean size_acc: 0.400000
+mean size_cls_loss: 0.115390
+mean size_reg_loss: 0.020696
+mean vote_loss: 2.003578
+ ---- batch: 040 ----
+mean box_loss: 1.983846
+mean center_loss: 1.684771
+mean heading_acc: 0.000000
+mean heading_cls_loss: 1.598899
+mean heading_reg_loss: 0.087101
+mean loss: 41.097664
+mean neg_ratio: 0.993750
+mean obj_acc: 0.999312
+mean objectness_loss: 0.022740
+mean pos_ratio: 0.000684
+mean sem_acc: 0.599999
+mean sem_cls_loss: 0.074831
+mean size_acc: 0.599999
+mean size_cls_loss: 0.129216
+mean size_reg_loss: 0.039163
+mean vote_loss: 2.107067
