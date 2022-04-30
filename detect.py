@@ -102,6 +102,7 @@ elif FLAGS.dataset == 'kitti':
     from kitti.model_util_kitti import KittiDatasetConfig
 
     DATASET_CONFIG = KittiDatasetConfig()
+    #TODO modify for Pedestrian
     gt_database_dir = './kitti/gt_database/train_gt_database_3level_Car.pkl'
     TRAIN_DATASET = KittiVoteDataset('./kitti', npoints=NUM_POINT, gt_database_dir=gt_database_dir)
     TEST_DATASET = KittiVoteDataset('./kitti', npoints=NUM_POINT, split='val', mode='EVAL')

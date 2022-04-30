@@ -36,7 +36,7 @@ sys.path.append(os.path.join(ROOT_DIR, 'utils'))
 sys.path.append(os.path.join(ROOT_DIR, 'pointnet2'))
 sys.path.append(os.path.join(ROOT_DIR, 'models'))
 from pytorch_utils import BNMomentumScheduler
-# from tf_visualizer import Visualizer as TfVisualizer
+from utils.tf_visualizer import Visualizer as TfVisualizer
 from kitti_ap_helper import APCalculator, parse_predictions, parse_groundtruths
 
 parser = argparse.ArgumentParser()
@@ -91,7 +91,7 @@ if os.path.exists(LOG_DIR) and FLAGS.overwrite:
         print('Exiting..')
         exit()
     elif c == 'y' or c == 'Y':
-        print('Overwrite the files in the log and dump folers...')
+        print('Overwrite the files in the log and dump folders...')
         os.system('rm -r %s %s'%(LOG_DIR, DUMP_DIR))
 
 if not os.path.exists(LOG_DIR):
@@ -149,7 +149,7 @@ TRAIN_DATALOADER = DataLoader(TRAIN_DATASET, batch_size=BATCH_SIZE,
     shuffle=True, num_workers=4, worker_init_fn=my_worker_init_fn)
 TEST_DATALOADER = DataLoader(TEST_DATASET, batch_size=BATCH_SIZE,
     shuffle=True, num_workers=4, worker_init_fn=my_worker_init_fn)
-print(len(TRAIN_DATALOADER), len(TEST_DATALOADER))
+print('number train examples {}, number test examples {}'.format(len(TRAIN_DATALOADER), len(TEST_DATALOADER)))
 
 # Init the model and optimzier
 MODEL = importlib.import_module(FLAGS.model) # import network module
@@ -211,8 +211,8 @@ def adjust_learning_rate(optimizer, epoch):
         param_group['lr'] = lr
 
 # TFBoard Visualizers
-# TRAIN_VISUALIZER = TfVisualizer(FLAGS, 'train')
-# TEST_VISUALIZER = TfVisualizer(FLAGS, 'test')
+TRAIN_VISUALIZER = TfVisualizer(FLAGS, 'train')
+TEST_VISUALIZER = TfVisualizer(FLAGS, 'test')
 
 
 # Used for AP calculation
@@ -255,8 +255,8 @@ def train_one_epoch():
         batch_interval = 10
         if (batch_idx+1) % batch_interval == 0:
             log_string(' ---- batch: %03d ----' % (batch_idx+1))
-            # TRAIN_VISUALIZER.log_scalars({key:stat_dict[key]/batch_interval for key in stat_dict},
-            #     (EPOCH_CNT*len(TRAIN_DATALOADER)+batch_idx)*BATCH_SIZE)
+            TRAIN_VISUALIZER.log_scalars({key:stat_dict[key]/batch_interval for key in stat_dict},
+                (EPOCH_CNT*len(TRAIN_DATALOADER)+batch_idx)*BATCH_SIZE)
             for key in sorted(stat_dict.keys()):
                 log_string('mean %s: %f'%(key, stat_dict[key]/batch_interval))
                 stat_dict[key] = 0
@@ -316,8 +316,8 @@ def evaluate_one_epoch():
             MODEL.dump_results(end_points, DUMP_DIR, DATASET_CONFIG) 
 
     # Log statistics
-    # TEST_VISUALIZER.log_scalars({key:stat_dict[key]/float(batch_idx+1) for key in stat_dict},
-    #     (EPOCH_CNT+1)*len(TRAIN_DATALOADER)*BATCH_SIZE)
+    TEST_VISUALIZER.log_scalars({key:stat_dict[key]/float(batch_idx+1) for key in stat_dict},
+        (EPOCH_CNT+1)*len(TRAIN_DATALOADER)*BATCH_SIZE)
     for key in sorted(stat_dict.keys()):
         log_string('eval mean %s: %f'%(key, stat_dict[key]/(float(batch_idx+1))))
 
@@ -325,6 +325,8 @@ def evaluate_one_epoch():
     metrics_dict = ap_calculator.compute_metrics()
     for key in metrics_dict:
         log_string('eval %s: %f'%(key, metrics_dict[key]))
+    TEST_VISUALIZER.log_scalars({key: metrics_dict[key] / float(batch_idx + 1) for key in stat_dict},
+                                (EPOCH_CNT + 1) * len(TRAIN_DATALOADER) * BATCH_SIZE)
 
     mean_loss = stat_dict['loss']/float(batch_idx+1)
     return mean_loss
