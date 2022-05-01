@@ -140,7 +140,7 @@ elif FLAGS.dataset == 'kitti':
     from kitti.model_util_kitti import KittiDatasetConfig
     DATASET_CONFIG = KittiDatasetConfig()
     gt_database_dir = './kitti/gt_database/train_gt_database_3level_Car.pkl'
-    TRAIN_DATASET = KittiVoteDataset('./kitti', npoints=NUM_POINT, gt_database_dir=gt_database_dir, classes=FLAGS.clazz)
+    TRAIN_DATASET = KittiVoteDataset('./kitti', npoints=NUM_POINT, gt_database_dir=None, classes=FLAGS.clazz)
     TEST_DATASET = KittiVoteDataset('./kitti', npoints=NUM_POINT, split='val', mode='EVAL')
 else:
     print('Unknown dataset %s. Exiting...'%(FLAGS.dataset))
@@ -308,7 +308,6 @@ def evaluate_one_epoch():
         #     boxes.append(corer3d_to_box3d(box_corners[1]))
         # boxes = np.array(boxes)
         # box_viz(boxes, name='pred_box')
-
 
         ap_calculator.step(batch_pred_map_cls, batch_gt_map_cls)
 

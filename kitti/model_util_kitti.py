@@ -9,17 +9,19 @@ sys.path.append(os.path.join(ROOT_DIR, 'utils'))
 
 class KittiDatasetConfig(object):
     def __init__(self):
-        self.num_class = 4
+        self.num_class = 3
         self.num_heading_bin = 12
-        self.num_size_cluster = 4
+        self.num_size_cluster = 3
 
-        self.type2class = {'Car': 0, 'Van': 1, 'Pedestrian': 2, 'Cyclist': 3}
+        self.type2class = {'Car': 0, 'Pedestrian': 1, 'Cyclist': 2}
+        # self.type2class = {'Pedestrian': 0}
+
         self.class2type = {self.type2class[t]: t for t in self.type2class}
-        self.type2onehotclass={'Car': 0}
+        # self.type2onehotclass={'Car': 0}
         # self.type_mean_size = {'Car': np.array([1.52563191462, 1.62856739989, 3.88311640418]),
         #                        'Van': np.array([2.20310262529, 1.91235083532, 5.20625298329])}  # whl
         self.type_mean_size = {'Car': np.array([3.88311640418, 1.62856739989, 1.52563191462]),
-                               'Van': np.array([5.20625298329, 1.91235083532, 2.20310262529]),
+                               # 'Van': np.array([5.20625298329, 1.91235083532, 2.20310262529]),
                                'Pedestrian': np.array([0.8204212, 1.76761477, 0.62772362]),
                                'Cyclist': np.array([1.77154104, 1.72919598, 0.55904523])}  # lhw
 

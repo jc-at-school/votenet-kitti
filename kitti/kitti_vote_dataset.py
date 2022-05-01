@@ -16,7 +16,7 @@ class Config():
         self.INCLUDE_SIMILAR_TYPE = True
         self.PC_REDUCE_BY_RANGE = True
         self.PC_AREA_SCOPE = [[-40, 40], [-1, 3], [0, 70.4]]
-        self.GT_AUG_ENABLED = True
+        self.GT_AUG_ENABLED = False
         self.GT_AUG_APPLY_PROB = 1
         self.USE_INTENSITY = False
         self.GT_AUG_RAND_NUM = True
@@ -47,6 +47,9 @@ class KittiVoteDataset(KittiDataset):
             aug_scene_root_dir = os.path.join(root_dir, 'KITTI', 'aug_scene_ped')
         elif classes == 'Cyclist':
             self.classes = ('Background', 'Cyclist')
+            aug_scene_root_dir = os.path.join(root_dir, 'KITTI', 'aug_scene_cyclist')
+        elif classes == 'All':
+            self.classes = ('Background', 'Cyclist', 'Pedestrian', 'Car')
             aug_scene_root_dir = os.path.join(root_dir, 'KITTI', 'aug_scene_cyclist')
         else:
             assert False, "Invalid classes: %s" % classes
@@ -119,8 +122,8 @@ class KittiVoteDataset(KittiDataset):
         type_whitelist = self.classes
         if self.mode == 'TRAIN' and cfg.INCLUDE_SIMILAR_TYPE:
             type_whitelist = list(self.classes)
-            if 'Car' in self.classes:
-                type_whitelist.append('Van')
+            # if 'Car' in self.classes:
+            #     type_whitelist.append('Van')
             # if 'Pedestrian' in self.classes or 'Cyclist' in self.classes:  # or 'Cyclist' in self.classes:
             #     type_whitelist.append('Person_sitting')
 
