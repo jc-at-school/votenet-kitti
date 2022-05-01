@@ -41,6 +41,7 @@ from kitti_ap_helper import APCalculator, parse_predictions, parse_groundtruths
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--model', default='votenet', help='Model file name [default: votenet]')
+parser.add_argument('--clazz', default='Car', help='Class to train for in KITTI [default: Car]')
 parser.add_argument('--dataset', default='kitti', help='Dataset name. sunrgbd or scannet. [default: sunrgbd]')
 parser.add_argument('--checkpoint_path', default=None, help='Model checkpoint path [default: None]')
 parser.add_argument('--log_dir', default='log', help='Dump dir to save model checkpoint [default: log]')
@@ -139,7 +140,7 @@ elif FLAGS.dataset == 'kitti':
     from kitti.model_util_kitti import KittiDatasetConfig
     DATASET_CONFIG = KittiDatasetConfig()
     gt_database_dir = './kitti/gt_database/train_gt_database_3level_Car.pkl'
-    TRAIN_DATASET = KittiVoteDataset('./kitti', npoints=NUM_POINT, gt_database_dir=gt_database_dir)
+    TRAIN_DATASET = KittiVoteDataset('./kitti', npoints=NUM_POINT, gt_database_dir=gt_database_dir, classes=FLAGS.clazz)
     TEST_DATASET = KittiVoteDataset('./kitti', npoints=NUM_POINT, split='val', mode='EVAL')
 else:
     print('Unknown dataset %s. Exiting...'%(FLAGS.dataset))
@@ -325,7 +326,7 @@ def evaluate_one_epoch():
     metrics_dict = ap_calculator.compute_metrics()
     for key in metrics_dict:
         log_string('eval %s: %f'%(key, metrics_dict[key]))
-    TEST_VISUALIZER.log_scalars({key: metrics_dict[key] / float(batch_idx + 1) for key in stat_dict},
+    TEST_VISUALIZER.log_scalars({key: metrics_dict[key] / float(batch_idx + 1) for key in metrics_dict},
                                 (EPOCH_CNT + 1) * len(TRAIN_DATALOADER) * BATCH_SIZE)
 
     mean_loss = stat_dict['loss']/float(batch_idx+1)

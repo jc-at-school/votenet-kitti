@@ -41,7 +41,7 @@ class Object3d(object):
             self.level_str = 'Hard'
             return 3  # Hard
         else:
-            self.level_str = 'UnKnown'
+            self.level_str = 'Unknown'
             return 4
 
     def generate_corners3d(self):
