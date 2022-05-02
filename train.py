@@ -141,7 +141,7 @@ elif FLAGS.dataset == 'kitti':
     DATASET_CONFIG = KittiDatasetConfig()
     gt_database_dir = './kitti/gt_database/train_gt_database_3level_Car.pkl'
     TRAIN_DATASET = KittiVoteDataset('./kitti', npoints=NUM_POINT, gt_database_dir=None, classes=FLAGS.clazz)
-    TEST_DATASET = KittiVoteDataset('./kitti', npoints=NUM_POINT, split='val', mode='EVAL')
+    TEST_DATASET = KittiVoteDataset('./kitti', npoints=NUM_POINT, split='val', mode='EVAL', classes=FLAGS.clazz)
 else:
     print('Unknown dataset %s. Exiting...'%(FLAGS.dataset))
     exit(-1)
@@ -219,7 +219,7 @@ TEST_VISUALIZER = TfVisualizer(FLAGS, 'test')
 # Used for AP calculation
 CONFIG_DICT = {'remove_empty_box':False, 'use_3d_nms':True,
     'nms_iou':0.25, 'use_old_type_nms':False, 'cls_nms':True,
-    'per_class_proposal': True, 'conf_thresh':0.05,
+    'per_class_proposal': True, 'conf_thresh':0.01,
     'dataset_config':DATASET_CONFIG}
 
 # ------------------------------------------------------------------------- GLOBAL CONFIG END
