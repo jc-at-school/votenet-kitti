@@ -178,12 +178,12 @@ optimizer = optim.Adam(net.parameters(), lr=BASE_LEARNING_RATE, weight_decay=FLA
 # Load checkpoint if there is any
 it = -1 # for the initialize value of `LambdaLR` and `BNMomentumScheduler`
 start_epoch = 0
-# if CHECKPOINT_PATH is not None and os.path.isfile(CHECKPOINT_PATH):
-#     checkpoint = torch.load(CHECKPOINT_PATH)
-#     net.load_state_dict(checkpoint['model_state_dict'])
-#     optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
-#     start_epoch = checkpoint['epoch']
-#     log_string("-> loaded checkpoint %s (epoch: %d)"%(CHECKPOINT_PATH, start_epoch))
+if CHECKPOINT_PATH is not None and os.path.isfile(CHECKPOINT_PATH):
+    checkpoint = torch.load(CHECKPOINT_PATH)
+    net.load_state_dict(checkpoint['model_state_dict'])
+    optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
+    start_epoch = checkpoint['epoch']
+    log_string("-> loaded checkpoint %s (epoch: %d)"%(CHECKPOINT_PATH, start_epoch))
 
 if torch.cuda.device_count() > 1:
     log_string("Let's use %d GPUs!" % (torch.cuda.device_count()))
@@ -219,7 +219,7 @@ TEST_VISUALIZER = TfVisualizer(FLAGS, 'test')
 # Used for AP calculation
 CONFIG_DICT = {'remove_empty_box':False, 'use_3d_nms':True,
     'nms_iou':0.25, 'use_old_type_nms':False, 'cls_nms':True,
-    'per_class_proposal': True, 'conf_thresh':0.01,
+    'per_class_proposal': True, 'conf_thresh':0.05,
     'dataset_config':DATASET_CONFIG}
 
 # ------------------------------------------------------------------------- GLOBAL CONFIG END
@@ -312,12 +312,12 @@ def evaluate_one_epoch():
         ap_calculator.step(batch_pred_map_cls, batch_gt_map_cls)
 
         # Dump evaluation results for visualization
-        if FLAGS.dump_results and batch_idx == 0 and EPOCH_CNT %10 == 0:
-            MODEL.dump_results(end_points, DUMP_DIR, DATASET_CONFIG) 
+        # if FLAGS.dump_results and batch_idx == 0 and EPOCH_CNT %10 == 0:
+        #     MODEL.dump_results(end_points, DUMP_DIR, DATASET_CONFIG)
 
     # Log statistics
-    TEST_VISUALIZER.log_scalars({key:stat_dict[key]/float(batch_idx+1) for key in stat_dict},
-        (EPOCH_CNT+1)*len(TRAIN_DATALOADER)*BATCH_SIZE)
+    # TEST_VISUALIZER.log_scalars({key:stat_dict[key]/float(batch_idx+1) for key in stat_dict},
+    #     (EPOCH_CNT+1)*len(TRAIN_DATALOADER)*BATCH_SIZE)
     for key in sorted(stat_dict.keys()):
         log_string('eval mean %s: %f'%(key, stat_dict[key]/(float(batch_idx+1))))
 
@@ -325,8 +325,8 @@ def evaluate_one_epoch():
     metrics_dict = ap_calculator.compute_metrics()
     for key in metrics_dict:
         log_string('eval %s: %f'%(key, metrics_dict[key]))
-    TEST_VISUALIZER.log_scalars({key: metrics_dict[key] / float(batch_idx + 1) for key in metrics_dict},
-                                (EPOCH_CNT + 1) * len(TRAIN_DATALOADER) * BATCH_SIZE)
+    # TEST_VISUALIZER.log_scalars({key: metrics_dict[key] / float(batch_idx + 1) for key in metrics_dict},
+    #                             (EPOCH_CNT + 1) * len(TRAIN_DATALOADER) * BATCH_SIZE)
 
     mean_loss = stat_dict['loss']/float(batch_idx+1)
     return mean_loss
@@ -373,6 +373,9 @@ if __name__=='__main__':
     dt = datetime.now()
     start_time = 'strat time：(%Y-%m-%d %H:%M:%S): ', dt.strftime('%Y-%m-%d %H:%M:%S')
     train(start_epoch)
+    # TODO uncomment below to eval
+    # global EPOCH_CNT
+    # evaluate_one_epoch()
     dt = datetime.now()
     end_time = 'end time：(%Y-%m-%d %H:%M:%S): ', dt.strftime('%Y-%m-%d %H:%M:%S')
     print(start_time)

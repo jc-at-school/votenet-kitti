@@ -35,7 +35,7 @@ DC = KittiDatasetConfig()
 class KittiVoteDataset(KittiDataset):
 
     def __init__(self, root_dir, npoints=16384, split='train', classes='Car', mode='TRAIN', random_select=True,
-                 gt_database_dir=None):
+                 gt_database_dir=None, supersample=False):
         super().__init__(root_dir=root_dir, split=split)
         if classes == 'Car':
             self.classes = ('Background', 'Car')
@@ -200,19 +200,14 @@ class KittiVoteDataset(KittiDataset):
                 pts_near_flag = pts_depth < 40.0
                 far_idxs_choice = np.where(pts_near_flag == 0)[0] #choose all the far points, sample for the near ones
                 near_idxs = np.where(pts_near_flag == 1)[0]
-                near_idxs_choice = np.random.choice(near_idxs, self.npoints - len(far_idxs_choice), replace=False)
-
-                choice = np.concatenate((near_idxs_choice, far_idxs_choice), axis=0) \
+                near_idxs_choice = np.random.choice(near_idxs, self.npoints - len(far_idxs_choice) - 0.2*len(far_idxs_choice), replace=False)
+                supersample_far_idxs_choice = np.random.choice(np.where(pts_near_flag == 0)[0], self.npoints - len(far_idxs_choice) - len(near_idxs_choice), replace=False)
+                choice = np.concatenate((near_idxs_choice, far_idxs_choice, supersample_far_idxs_choice), axis=0) \
                     if len(far_idxs_choice) > 0 else near_idxs_choice
                 np.random.shuffle(choice)
-            else:
+            else: #Test
                 choice = np.arange(0, len(pts_rect), dtype=np.int32)
                 if self.npoints > len(pts_rect):
-                    #TODO only super sample far points
-                    # pts_depth = pts_rect[:, 2]
-                    # pts_near_flag = pts_depth < 40.0
-                    # far_idxs_choice = np.where(pts_near_flag == 0)[0]
-                    # extra_choice = np.random.choice(far_idxs_choice, self.npoints - len(pts_rect), replace=True)
                     extra_choice = np.random.choice(choice, self.npoints - len(pts_rect), replace=False)
                     choice = np.concatenate((choice, extra_choice), axis=0)
                 np.random.shuffle(choice)
